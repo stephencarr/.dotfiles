@@ -55,11 +55,14 @@ syntax enable
 silent! colorscheme solarized
 highlight SignColumn ctermbg=8
 
-" Plugins
+" Set wildcard ignore for ctrlp and ack/ag
+set wildignore+=*/tmp/*,vendor/bundle/*,*/build/*,*/Resources/*,*.so,*.swp,*.zip,*.png,*.jpg,*.jpeg,*.gif,.gitkeep
 
+" Plugins
 call plug#begin('~/.vim/plugged')
 
 Plug 'tpope/vim-sensible'
 Plug 'mxw/vim-jsx'
+Plug 'ctrlpvim/ctrlp.vim'
 
 call plug#end()
