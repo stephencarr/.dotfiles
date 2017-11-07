@@ -54,3 +54,6 @@
   untracked = cyan
 [merge]
   log = true
+[user]
+	name = Stephen Carr
+	email = stephencarr@gmail.com
