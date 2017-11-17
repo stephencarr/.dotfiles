@@ -7,7 +7,29 @@ export ZSH=/Users/scarr/.oh-my-zsh
 # Set name of the theme to load. Optionally, if you set this to "random"
 # it'll load a random theme each time that oh-my-zsh is loaded.
 # See https://github.com/robbyrussell/oh-my-zsh/wiki/Themes
-ZSH_THEME="robbyrussell"
+ZSH_THEME="spaceship"
+
+# Spaceship theme variables
+
+SPACESHIP_PACKAGE_SHOW=false
+
+SPACESHIP_GIT_SYMBOL="👉  "
+
+# GIT STATUS
+SPACESHIP_GIT_STATUS_SHOW=true
+SPACESHIP_GIT_STATUS_PREFIX=" "
+SPACESHIP_GIT_STATUS_SUFFIX=" "
+SPACESHIP_GIT_STATUS_COLOR="yellow"
+SPACESHIP_GIT_STATUS_UNTRACKED="?"
+SPACESHIP_GIT_STATUS_ADDED="+"
+SPACESHIP_GIT_STATUS_MODIFIED="!"
+SPACESHIP_GIT_STATUS_RENAMED="»"
+SPACESHIP_GIT_STATUS_DELETED="✘"
+SPACESHIP_GIT_STATUS_STASHED="☾ "
+SPACESHIP_GIT_STATUS_UNMERGED="="
+SPACESHIP_GIT_STATUS_AHEAD="⇡"
+SPACESHIP_GIT_STATUS_BEHIND="⇣"
+SPACESHIP_GIT_STATUS_DIVERGED="⇕"
 
 # Set list of themes to load
 # Setting this variable when ZSH_THEME=random
@@ -91,6 +113,15 @@ setopt globdots
 # users are encouraged to define aliases within the ZSH_CUSTOM folder.
 # For a full list of active aliases, run `alias`.
 #
-# Example aliases
-# alias zshconfig="mate ~/.zshrc"
-# alias ohmyzsh="mate ~/.oh-my-zsh"
+
+# Detect which `ls` flavor is in use
+if ls --color > /dev/null 2>&1; then # GNU `ls`
+ colorflag="--color"
+else # OS X `ls`
+ colorflag="-G"
+fi
+
+alias ls="ls -GFh ${colorflag}"
+alias ll="ls -AlFh"
+alias la="ls -laF ${colorflag}" # List all files colorized in long format, including dot files
+alias lsd='ls -lF ${colorflag} | grep "^d"' # List only directories

@@ -64,5 +64,7 @@ call plug#begin('~/.vim/plugged')
 Plug 'tpope/vim-sensible'
 Plug 'mxw/vim-jsx'
 Plug 'ctrlpvim/ctrlp.vim'
+Plug 'jiangmiao/auto-pairs'
+Plug 'tpope/vim-ragtag'
 
 call plug#end()
