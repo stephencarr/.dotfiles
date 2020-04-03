@@ -1,0 +1,1293 @@
+Host *
+   AddKeysToAgent yes
+   UseKeychain yes
+   IdentityFile ~/.ssh/id_rsa
+
+#Host *
+#     ForwardAgent no
+
+# New staging servers
+Host staging-bastion
+  Hostname ec2-3-212-239-195.compute-1.amazonaws.com
+  Port 54321
+
+Host staging-cron
+  Hostname ip-10-0-1-106.ec2.internal
+  ProxyCommand ssh jump@staging-bastion -W %h:%p
+
+Host staging-web-1
+  Hostname ip-10-0-0-131.ec2.internal
+  ProxyCommand ssh jump@staging-bastion -W %h:%p
+
+Host staging-web-2
+  Hostname ip-10-0-2-162.ec2.internal
+  ProxyCommand ssh jump@staging-bastion -W %h:%p
+
+Host staging-work-1
+  Hostname ip-10-0-1-92.ec2.internal
+  ProxyCommand ssh jump@staging-bastion -W %h:%p
+
+Host staging-gconn
+  Hostname ip-10-0-2-250.ec2.internal
+  ProxyCommand ssh jump@staging-bastion -W %h:%p
+
+Host staging-gconn-2
+  Hostname ip-10-0-1-230.ec2.internal
+  ProxyCommand ssh jump@staging-bastion -W %h:%p
+
+# staging servers
+Host old-staging-web-1
+     Hostname 35.174.144.218
+     Port 54321
+
+Host old-staging-work-1
+     Hostname 35.175.19.233
+     Port 54321
+
+Host old-staging-cache
+     Hostname ec2-54-235-0-65.compute-1.amazonaws.com
+     Port 54321
+
+Host old-staging-gconn
+     Hostname ec2-54-165-234-186.compute-1.amazonaws.com
+     Port 54321
+
+Host old-staging-gconn-2
+     Hostname ec2-34-224-83-13.compute-1.amazonaws.com
+     Port 54321
+
+Host old-staging-cron
+     Hostname 52.70.225.148
+     Port 54321
+
+# production_hk servers
+Host prod_hk-bastion
+     Hostname ec2-34-247-217-124.eu-west-1.compute.amazonaws.com
+     Port 54321
+
+Host prod_hk-cache
+     Hostname ip-10-0-1-218.eu-west-1.compute.internal
+     ProxyCommand ssh jump@prod_hk-bastion -W %h:%p
+
+Host prod_hk-cron
+     Hostname ip-10-0-1-205.eu-west-1.compute.internal
+     ProxyCommand ssh jump@prod_hk-bastion -W %h:%p
+
+Host prod_hk-sync-1
+     Hostname ip-10-0-0-107.eu-west-1.compute.internal
+     ProxyCommand ssh jump@prod_hk-bastion -W %h:%p
+
+Host prod_hk-sync-2
+     Hostname ip-10-0-2-152.eu-west-1.compute.internal
+     ProxyCommand ssh jump@prod_hk-bastion -W %h:%p
+
+Host prod_hk-web-1
+     Hostname ip-10-0-0-111.eu-west-1.compute.internal
+     ProxyCommand ssh jump@prod_hk-bastion -W %h:%p
+
+Host prod_hk-web-2
+     Hostname ip-10-0-2-139.eu-west-1.compute.internal
+     ProxyCommand ssh jump@prod_hk-bastion -W %h:%p
+
+Host prod_hk-work-1
+     Hostname ip-10-0-1-88.eu-west-1.compute.internal
+     ProxyCommand ssh jump@prod_hk-bastion -W %h:%p
+
+Host prod_hk-work-2
+     Hostname ip-10-0-3-178.eu-west-1.compute.internal
+     ProxyCommand ssh jump@prod_hk-bastion -W %h:%p
+
+# production_rs servers
+Host prod_rs-bastion
+     Hostname ec2-18-212-216-24.compute-1.amazonaws.com
+     Port 54321
+
+Host prod_rs-cache
+     Hostname ip-10-0-1-117.ec2.internal
+     ProxyCommand ssh jump@prod_rs-bastion -W %h:%p
+
+Host prod_rs-cron
+     Hostname ip-10-0-1-36.ec2.internal
+     ProxyCommand ssh jump@prod_rs-bastion -W %h:%p
+
+Host prod_rs-sync-1
+     Hostname ip-10-0-0-165.ec2.internal
+     ProxyCommand ssh jump@prod_rs-bastion -W %h:%p
+
+Host prod_rs-sync-2
+     Hostname ip-10-0-2-105.ec2.internal
+     ProxyCommand ssh jump@prod_rs-bastion -W %h:%p
+
+Host prod_rs-web-1
+     Hostname ip-10-0-0-235.ec2.internal
+     StrictHostKeyChecking no
+     ProxyCommand ssh jump@prod_rs-bastion -W %h:%p
+
+Host prod_rs-web-2
+     Hostname ip-10-0-2-20.ec2.internal
+     ProxyCommand ssh jump@prod_rs-bastion -W %h:%p
+
+Host prod_rs-work-1
+     Hostname ip-10-0-1-125.ec2.internal
+     ProxyCommand ssh jump@prod_rs-bastion -W %h:%p
+
+Host prod_rs-work-2
+     Hostname ip-10-0-3-16.ec2.internal
+     ProxyCommand ssh jump@prod_rs-bastion -W %h:%p
+
+Host prod_rs-profiling
+     Hostname ip-10-0-3-184.ec2.internal
+     ProxyCommand ssh jump@prod_rs-bastion -W %h:%p
+
+# production_na2 servers
+Host prod_na2-bastion
+     Hostname 35.170.115.70
+     Port 54321
+
+Host prod_na2-cache
+     Hostname ip-10-0-1-228.ec2.internal
+     ProxyCommand ssh jump@prod_na2-bastion -W %h:%p
+
+Host prod_na2-cron
+     Hostname ip-10-0-1-133.ec2.internal
+     ProxyCommand ssh jump@prod_na2-bastion -W %h:%p
+
+Host prod_na2-sync-1
+     Hostname ip-10-0-0-92.ec2.internal
+     ProxyCommand ssh jump@prod_na2-bastion -W %h:%p
+
+Host prod_na2-sync-2
+     Hostname ip-10-0-2-154.ec2.internal
+     ProxyCommand ssh jump@prod_na2-bastion -W %h:%p
+
+Host prod_na2-web-1
+     Hostname ip-10-0-0-159.ec2.internal
+     ProxyCommand ssh jump@prod_na2-bastion -W %h:%p
+
+Host prod_na2-web-2
+     Hostname ip-10-0-2-159.ec2.internal
+     ProxyCommand ssh jump@prod_na2-bastion -W %h:%p
+
+Host prod_na2-work-1
+     Hostname ip-10-0-1-35.ec2.internal
+     ProxyCommand ssh jump@prod_na2-bastion -W %h:%p
+
+Host prod_na2-work-2
+     Hostname ip-10-0-3-111.ec2.internal
+     ProxyCommand ssh jump@prod_na2-bastion -W %h:%p
+
+# production_ohh servers
+Host prod_ohh-bastion
+     Hostname 35.182.173.203
+     Port 54321
+
+Host prod_ohh-cache
+     Hostname ip-10-0-1-190.ca-central-1.compute.internal
+     ProxyCommand ssh jump@prod_ohh-bastion -W %h:%p
+
+Host prod_ohh-cron
+     Hostname ip-10-0-1-58.ca-central-1.compute.internal
+     ProxyCommand ssh jump@prod_ohh-bastion -W %h:%p
+
+Host prod_ohh-sync-1
+     Hostname ip-10-0-0-250.ca-central-1.compute.internal
+     ProxyCommand ssh jump@prod_ohh-bastion -W %h:%p
+
+Host prod_ohh-sync-2
+     Hostname ip-10-0-2-223.ca-central-1.compute.internal
+     ProxyCommand ssh jump@prod_ohh-bastion -W %h:%p
+
+Host prod_ohh-web-1
+     Hostname ip-10-0-0-36.ca-central-1.compute.internal
+     ProxyCommand ssh jump@prod_ohh-bastion -W %h:%p
+
+Host prod_ohh-web-2
+     Hostname ip-10-0-2-205.ca-central-1.compute.internal
+     ProxyCommand ssh jump@prod_ohh-bastion -W %h:%p
+
+Host prod_ohh-work-1
+     Hostname ip-10-0-1-243.ca-central-1.compute.internal
+     ProxyCommand ssh jump@prod_ohh-bastion -W %h:%p
+
+Host prod_ohh-work-2
+     Hostname ip-10-0-3-38.ca-central-1.compute.internal
+     ProxyCommand ssh jump@prod_ohh-bastion -W %h:%p
+
+# uat servers
+Host uat-bastion
+    Hostname 34.239.75.161
+    Port 54321
+
+Host uat-cache
+    Hostname ip-10-0-1-8.ec2.internal
+    ProxyCommand ssh jump@uat-bastion -W %h:%p
+
+Host uat-cron
+    Hostname ip-10-0-1-76.ec2.internal
+    ProxyCommand ssh jump@uat-bastion -W %h:%p
+
+Host uat-sync-1
+    Hostname ip-10-0-0-241.ec2.internal
+    ProxyCommand ssh jump@uat-bastion -W %h:%p
+
+Host uat-web-1
+    Hostname ip-10-0-0-203.ec2.internal
+    ProxyCommand ssh jump@uat-bastion -W %h:%p
+
+Host uat-web-2
+    Hostname ip-10-0-2-117.ec2.internal
+    ProxyCommand ssh jump@uat-bastion -W %h:%p
+
+Host uat-work-1
+    Hostname ip-10-0-1-53.ec2.internal
+    ProxyCommand ssh jump@uat-bastion -W %h:%p
+
+# production_fw servers
+Host prod_fw-bastion
+    Hostname 35.170.116.251
+    Port 54321
+
+Host prod_fw-cache
+    Hostname ip-10-0-1-128.ec2.internal
+    ProxyCommand ssh jump@prod_fw-bastion -W %h:%p
+
+Host prod_fw-cron
+    Hostname ip-10-0-1-252.ec2.internal
+    ProxyCommand ssh jump@prod_fw-bastion -W %h:%p
+
+Host prod_fw-sync-1
+    Hostname ip-10-0-0-177.ec2.internal
+    ProxyCommand ssh jump@prod_fw-bastion -W %h:%p
+
+Host prod_fw-sync-2
+    Hostname ip-10-0-2-128.ec2.internal
+    ProxyCommand ssh jump@prod_fw-bastion -W %h:%p
+
+Host prod_fw-web-1
+    Hostname ip-10-0-0-92.ec2.internal
+    ProxyCommand ssh jump@prod_fw-bastion -W %h:%p
+
+Host prod_fw-web-2
+    Hostname ip-10-0-2-60.ec2.internal
+    ProxyCommand ssh jump@prod_fw-bastion -W %h:%p
+
+Host prod_fw-work-1
+    Hostname ip-10-0-1-73.ec2.internal
+    ProxyCommand ssh jump@prod_fw-bastion -W %h:%p
+
+Host prod_fw-work-2
+    Hostname ip-10-0-3-207.ec2.internal
+    ProxyCommand ssh jump@prod_fw-bastion -W %h:%p
+
+# demo servers
+Host demo-bastion
+    Hostname 35.170.142.61
+    Port 54321
+
+Host demo-cache
+    Hostname ip-10-0-1-184.ec2.internal
+    ProxyCommand ssh jump@demo-bastion -W %h:%p
+
+Host demo-cron
+    Hostname ip-10-0-1-119.ec2.internal
+    ProxyCommand ssh jump@demo-bastion -W %h:%p
+
+Host demo-sync-1
+    Hostname ip-10-0-0-5.ec2.internal
+    ProxyCommand ssh jump@demo-bastion -W %h:%p
+
+Host demo-sync-2
+    Hostname ip-10-0-2-136.ec2.internal
+    ProxyCommand ssh jump@demo-bastion -W %h:%p
+
+Host demo-web-1
+    Hostname ip-10-0-0-103.ec2.internal
+    ProxyCommand ssh jump@demo-bastion -W %h:%p
+
+Host demo-web-2
+    Hostname ip-10-0-2-68.ec2.internal
+    ProxyCommand ssh jump@demo-bastion -W %h:%p
+
+Host demo-work-1
+    Hostname ip-10-0-1-7.ec2.internal
+    ProxyCommand ssh jump@demo-bastion -W %h:%p
+
+# production servers
+Host prod-bastion
+    Hostname 34.198.176.117
+    Port 54321
+
+Host prod-cache
+    Hostname ip-10-0-1-93.ec2.internal
+    ProxyCommand ssh jump@prod-bastion -W %h:%p
+
+Host prod-cron
+    Hostname ip-10-0-1-157.ec2.internal
+    ProxyCommand ssh jump@prod-bastion -W %h:%p
+
+Host prod-sync-1
+    Hostname ip-10-0-0-210.ec2.internal
+    ProxyCommand ssh jump@prod-bastion -W %h:%p
+
+# production_lf Lupton Fawcett Ireland Servers
+Host prod_lf-bastion
+  Hostname ec2-34-255-243-181.eu-west-1.compute.amazonaws.com
+  Port 54321
+
+Host prod_lf-cache
+  Hostname ip-10-0-1-158.eu-west-1.compute.internal
+  ProxyCommand ssh jump@prod_lf-bastion -W %h:%p
+
+Host prod_lf-cron
+  Hostname ip-10-0-1-136.eu-west-1.compute.internal
+  ProxyCommand ssh jump@prod_lf-bastion -W %h:%p
+
+Host prod_lf-web-1
+  Hostname ip-10-0-0-129.eu-west-1.compute.internal
+  ProxyCommand ssh jump@prod_lf-bastion -W %h:%p
+
+Host prod_lf-web-2
+  Hostname ip-10-0-2-71.eu-west-1.compute.internal
+  ProxyCommand ssh jump@prod_lf-bastion -W %h:%p
+
+Host prod_lf-work-1
+  Hostname ip-10-0-1-222.eu-west-1.compute.internal
+  ProxyCommand ssh jump@prod_lf-bastion -W %h:%p
+
+Host prod_lf-work-2
+  Hostname ip-10-0-3-121.eu-west-1.compute.internal
+  ProxyCommand ssh jump@prod_lf-bastion -W %h:%p
+
+Host prod-sync-2
+    Hostname ip-10-0-2-239.ec2.internal
+    ProxyCommand ssh jump@prod-bastion -W %h:%p
+
+Host prod-web-1
+    Hostname ip-10-0-0-81.ec2.internal
+    ProxyCommand ssh jump@prod-bastion -W %h:%p
+
+Host prod-web-2
+    Hostname ip-10-0-2-98.ec2.internal
+    ProxyCommand ssh jump@prod-bastion -W %h:%p
+
+Host prod-web-3
+    Hostname ip-10-0-4-154.ec2.internal
+    ProxyCommand ssh jump@prod-bastion -W %h:%p
+
+Host prod-work-1
+    Hostname ip-10-0-1-118.ec2.internal
+    ProxyCommand ssh jump@prod-bastion -W %h:%p
+
+Host prod-work-2
+    Hostname ip-10-0-3-240.ec2.internal
+    ProxyCommand ssh jump@prod-bastion -W %h:%p
+
+Host prod-work-3
+    Hostname ip-10-0-5-168.ec2.internal
+    ProxyCommand ssh jump@prod-bastion -W %h:%p
+
+Host prod-gconn
+    Hostname ip-10-0-4-47.ec2.internal
+    ProxyCommand ssh jump@prod-bastion -W %h:%p
+
+Host prod-gconn-2
+    Hostname ip-10-0-3-45.ec2.internal
+    ProxyCommand ssh jump@prod-bastion -W %h:%p
+
+# production_nbc servers
+Host prod_nbc-bastion
+    Hostname 35.182.137.17
+    Port 54321
+
+Host prod_nbc-cache
+    Hostname ip-10-0-1-125.ca-central-1.compute.internal
+    ProxyCommand ssh jump@prod_nbc-bastion -W %h:%p
+
+Host prod_nbc-cron
+    Hostname ip-10-0-1-182.ca-central-1.compute.internal
+    ProxyCommand ssh jump@prod_nbc-bastion -W %h:%p
+
+Host prod_nbc-sync-1
+    Hostname ip-10-0-0-162.ca-central-1.compute.internal
+    ProxyCommand ssh jump@prod_nbc-bastion -W %h:%p
+
+Host prod_nbc-sync-2
+    Hostname ip-10-0-2-17.ca-central-1.compute.internal
+    ProxyCommand ssh jump@prod_nbc-bastion -W %h:%p
+
+Host prod_nbc-web-1
+    Hostname ip-10-0-0-232.ca-central-1.compute.internal
+    ProxyCommand ssh jump@prod_nbc-bastion -W %h:%p
+
+Host prod_nbc-web-2
+    Hostname ip-10-0-2-25.ca-central-1.compute.internal
+    ProxyCommand ssh jump@prod_nbc-bastion -W %h:%p
+
+Host prod_nbc-work-1
+    Hostname ip-10-0-1-54.ca-central-1.compute.internal
+    ProxyCommand ssh jump@prod_nbc-bastion -W %h:%p
+
+Host prod_nbc-work-2
+    Hostname ip-10-0-3-103.ca-central-1.compute.internal
+    ProxyCommand ssh jump@prod_nbc-bastion -W %h:%p
+
+
+# production_nera servers
+Host prod_nera-bastion
+    Hostname 35.153.251.242
+    Port 54321
+
+Host prod_nera-cache
+    Hostname ip-10-0-1-94.ec2.internal
+    ProxyCommand ssh jump@prod_nera-bastion -W %h:%p
+
+Host prod_nera-cron
+    Hostname ip-10-0-1-85.ec2.internal
+    ProxyCommand ssh jump@prod_nera-bastion -W %h:%p
+
+Host prod_nera-sync-1
+    Hostname ip-10-0-0-153.ec2.internal
+    ProxyCommand ssh jump@prod_nera-bastion -W %h:%p
+
+Host prod_nera-sync-2
+    Hostname ip-10-0-2-143.ec2.internal
+    ProxyCommand ssh jump@prod_nera-bastion -W %h:%p
+
+Host prod_nera-web-1
+    Hostname ip-10-0-0-40.ec2.internal
+    ProxyCommand ssh jump@prod_nera-bastion -W %h:%p
+
+Host prod_nera-web-2
+    Hostname ip-10-0-2-192.ec2.internal
+    ProxyCommand ssh jump@prod_nera-bastion -W %h:%p
+
+Host prod_nera-work-1
+    Hostname ip-10-0-1-142.ec2.internal
+    ProxyCommand ssh jump@prod_nera-bastion -W %h:%p
+
+Host prod_nera-work-2
+    Hostname ip-10-0-3-166.ec2.internal
+    ProxyCommand ssh jump@prod_nera-bastion -W %h:%p
+
+# crm servers
+Host crm-web-1
+    Hostname ec2-54-197-169-60.compute-1.amazonaws.com
+    Port 54321
+
+Host crm-work-1
+    Hostname ec2-204-236-251-203.compute-1.amazonaws.com
+    Port 54321
+
+Host prod_perf-bastion
+Hostname ec2-34-203-9-91.compute-1.amazonaws.com
+Port 54321
+
+Host prod_perf-cache
+Hostname ip-10-0-1-128.ec2.internal
+ProxyCommand ssh jump@prod_perf-bastion -W %h:%p
+StrictHostKeyChecking no
+
+Host prod_perf-cron
+Hostname ip-10-0-1-139.ec2.internal
+ProxyCommand ssh jump@prod_perf-bastion -W %h:%p
+StrictHostKeyChecking no
+
+Host prod_perf-sync-1
+Hostname ip-10-0-0-248.ec2.internal
+ProxyCommand ssh jump@prod_perf-bastion -W %h:%p
+StrictHostKeyChecking no
+
+Host prod_perf-sync-2
+Hostname ip-10-0-2-180.ec2.internal
+ProxyCommand ssh jump@prod_perf-bastion -W %h:%p
+StrictHostKeyChecking no
+
+Host prod_perf-web-1
+Hostname ip-10-0-0-107.ec2.internal
+ProxyCommand ssh jump@prod_perf-bastion -W %h:%p
+StrictHostKeyChecking no
+
+Host prod_perf-web-2
+Hostname ip-10-0-2-203.ec2.internal
+ProxyCommand ssh jump@prod_perf-bastion -W %h:%p
+StrictHostKeyChecking no
+
+Host prod_perf-work-1
+Hostname ip-10-0-1-106.ec2.internal
+ProxyCommand ssh jump@prod_perf-bastion -W %h:%p
+StrictHostKeyChecking no
+
+Host prod_perf-work-2
+Hostname ip-10-0-3-152.ec2.internal
+ProxyCommand ssh jump@prod_perf-bastion -W %h:%p
+StrictHostKeyChecking no
+
+# staging_ca servers
+Host staging_ca-bastion
+    Hostname ec2-18-195-44-165.eu-central-1.compute.amazonaws.com
+    Port 54321
+
+Host staging_ca-cache
+    Hostname ip-10-0-1-238.eu-central-1.compute.internal
+    ProxyCommand ssh jump@staging_ca-bastion -W %h:%p
+
+Host staging_ca-cron
+    Hostname ip-10-0-1-243.eu-central-1.compute.internal
+    ProxyCommand ssh jump@staging_ca-bastion -W %h:%p
+
+Host staging_ca-web-1
+    Hostname ip-10-0-0-181.eu-central-1.compute.internal
+    ProxyCommand ssh jump@staging_ca-bastion -W %h:%p
+
+Host staging_ca-web-2
+    Hostname ip-10-0-2-194.eu-central-1.compute.internal
+    ProxyCommand ssh jump@staging_ca-bastion -W %h:%p
+
+Host staging_ca-work-1
+    Hostname ip-10-0-1-110.eu-central-1.compute.internal
+    ProxyCommand ssh jump@staging_ca-bastion -W %h:%p
+
+Host staging_ca-gconn
+    Hostname ip-10-0-2-112.eu-central-1.compute.internal
+    ProxyCommand ssh jump@staging_ca-bastion -W %h:%p
+
+Host staging_ca-gconn-2
+    Hostname ip-10-0-1-226.eu-central-1.compute.internal
+    ProxyCommand ssh jump@staging_ca-bastion -W %h:%p
+
+# production_ca servers
+Host prod_ca-bastion
+    Hostname 52.29.148.33
+    Port 54321
+
+Host prod_ca-cache
+    Hostname ip-10-0-1-43.eu-central-1.compute.internal
+    ProxyCommand ssh jump@prod_ca-bastion -W %h:%p
+
+Host prod_ca-cron
+    Hostname ip-10-0-1-87.eu-central-1.compute.internal
+    ProxyCommand ssh jump@prod_ca-bastion -W %h:%p
+
+Host prod_ca-sync-1
+    Hostname ip-10-0-0-245.eu-central-1.compute.internal
+    ProxyCommand ssh jump@prod_ca-bastion -W %h:%p
+
+Host prod_ca-sync-2
+    Hostname ip-10-0-2-109.eu-central-1.compute.internal
+    ProxyCommand ssh jump@prod_ca-bastion -W %h:%p
+
+Host prod_ca-web-1
+    Hostname ip-10-0-0-254.eu-central-1.compute.internal
+    ProxyCommand ssh jump@prod_ca-bastion -W %h:%p
+
+Host prod_ca-web-2
+    Hostname ip-10-0-2-123.eu-central-1.compute.internal
+    ProxyCommand ssh jump@prod_ca-bastion -W %h:%p
+
+Host prod_ca-web-3
+    Hostname ip-10-0-4-47.eu-central-1.compute.internal
+    ProxyCommand ssh jump@prod_ca-bastion -W %h:%p
+
+Host prod_ca-work-1
+    Hostname ip-10-0-1-204.eu-central-1.compute.internal
+    ProxyCommand ssh jump@prod_ca-bastion -W %h:%p
+
+Host prod_ca-work-2
+    Hostname ip-10-0-3-109.eu-central-1.compute.internal
+    ProxyCommand ssh jump@prod_ca-bastion -W %h:%p
+
+Host prod_ca-work-3
+    Hostname ip-10-0-5-182.eu-central-1.compute.internal
+    ProxyCommand ssh jump@prod_ca-bastion -W %h:%p
+
+Host prod_ca-gconn
+    Hostname ip-10-0-4-14.eu-central-1.compute.internal
+    ProxyCommand ssh jump@prod_ca-bastion -W %h:%p
+
+Host prod_ca-gconn-2
+    Hostname ip-10-0-3-172.eu-central-1.compute.internal
+    ProxyCommand ssh jump@prod_ca-bastion -W %h:%p
+
+Host prod_ca-extra-1
+    Hostname ip-10-0-5-85.eu-central-1.compute.internal
+    ProxyCommand ssh jump@prod_ca-bastion -W %h:%p
+
+Host prod_ca-extra-2
+    Hostname ip-10-0-5-117.eu-central-1.compute.internal
+    ProxyCommand ssh jump@prod_ca-bastion -W %h:%p
+
+
+# production_fm servers
+Host prod_fm-bastion
+    Hostname 54.85.136.202
+    Port 54321
+
+Host prod_fm-cache
+    Hostname ip-10-0-1-114.ec2.internal
+    ProxyCommand ssh jump@prod_fm-bastion -W %h:%p
+
+Host prod_fm-cron
+    Hostname ip-10-0-1-38.ec2.internal
+    ProxyCommand ssh jump@prod_fm-bastion -W %h:%p
+
+Host prod_fm-sync-1
+    Hostname ip-10-0-0-201.ec2.internal
+    ProxyCommand ssh jump@prod_fm-bastion -W %h:%p
+
+Host prod_fm-sync-2
+    Hostname ip-10-0-2-212.ec2.internal
+    ProxyCommand ssh jump@prod_fm-bastion -W %h:%p
+
+Host prod_fm-web-1
+    Hostname ip-10-0-0-58.ec2.internal
+    ProxyCommand ssh jump@prod_fm-bastion -W %h:%p
+
+Host prod_fm-web-2
+    Hostname ip-10-0-2-25.ec2.internal
+    ProxyCommand ssh jump@prod_fm-bastion -W %h:%p
+
+Host prod_fm-work-1
+    Hostname ip-10-0-1-39.ec2.internal
+    ProxyCommand ssh jump@prod_fm-bastion -W %h:%p
+
+Host prod_fm-work-2
+    Hostname ip-10-0-3-11.ec2.internal
+    ProxyCommand ssh jump@prod_fm-bastion -W %h:%p
+
+# monitoring
+Host mon-bastion
+    Hostname 18.217.52.130
+    Port 54321
+
+Host mon-sensu
+    Hostname 10.0.1.129
+    ProxyCommand ssh jump@mon-bastion -W %h:%p
+
+Host mon-rabbitmq
+    Hostname ip-10-0-2-20.us-east-2.compute.internal
+    ProxyCommand ssh jump@mon-bastion -W %h:%p
+
+Host mon-flapjack
+    Hostname ip-10-0-2-61.us-east-2.compute.internal
+    ProxyCommand ssh jump@mon-bastion -W %h:%p
+
+Host mon-grafana
+    Hostname ip-10-0-2-82.us-east-2.compute.internal
+    ProxyCommand ssh jump@mon-bastion -W %h:%p
+
+Host mon-uchiwa
+    Hostname ip-10-0-0-120.us-east-2.compute.internal
+    ProxyCommand ssh jump@mon-bastion -W %h:%p
+
+Host mon-influxdb
+    Hostname ip-10-0-3-64.us-east-2.compute.internal
+    ProxyCommand ssh jump@mon-bastion -W %h:%p
+
+Host jmeter
+    Hostname 18.223.142.64
+
+# CRM
+
+Host crm_stag-web-1
+    Hostname 34.234.92.36
+    Port 54321
+
+Host crm_stag-web-2
+    Hostname 35.175.232.156
+    Port 54321
+
+Host crm_prod-web-1
+    Hostname 18.212.251.83
+    Port 54321
+
+Host crm_prod-web-2
+    Hostname 54.145.61.88
+    Port 54321
+
+Host crm_demo-web-1
+    Hostname 52.91.172.254
+    Port 54321
+
+Host crm_demo-web-2
+    Hostname 52.91.218.142
+    Port 54321
+
+# uat_can
+Host uat_can-bastion
+    Hostname 52.60.166.139
+    Port 54321
+
+Host uat_can-cache
+    Hostname ip-10-0-1-81.ca-central-1.compute.internal
+    ProxyCommand ssh jump@uat_can-bastion -W %h:%p
+
+Host uat_can-cron
+    Hostname ip-10-0-1-18.ca-central-1.compute.internal
+    ProxyCommand ssh jump@uat_can-bastion -W %h:%p
+
+Host uat_can-web-1
+    Hostname ip-10-0-0-88.ca-central-1.compute.internal
+    ProxyCommand ssh jump@uat_can-bastion -W %h:%p
+
+Host uat_can-web-2
+    Hostname ip-10-0-2-224.ca-central-1.compute.internal
+    ProxyCommand ssh jump@uat_can-bastion -W %h:%p
+
+Host uat_can-work-1
+    Hostname ip-10-0-1-113.ca-central-1.compute.internal
+    ProxyCommand ssh jump@uat_can-bastion -W %h:%p
+
+# production_nbc2
+Host prod_nbc2-bastion
+    Hostname 35.182.110.42
+    Port 54321
+
+Host prod_nbc2-cache
+    Hostname ip-10-0-1-241.ca-central-1.compute.internal
+    ProxyCommand ssh jump@prod_nbc2-bastion -W %h:%p
+
+Host prod_nbc2-cron
+    Hostname ip-10-0-1-43.ca-central-1.compute.internal
+    ProxyCommand ssh jump@prod_nbc2-bastion -W %h:%p
+
+Host prod_nbc2-sync-1
+    Hostname ip-10-0-0-49.ca-central-1.compute.internal
+    ProxyCommand ssh jump@prod_nbc2-bastion -W %h:%p
+
+Host prod_nbc2-sync-2
+    Hostname ip-10-0-2-130.ca-central-1.compute.internal
+    ProxyCommand ssh jump@prod_nbc2-bastion -W %h:%p
+
+Host prod_nbc2-web-1
+    Hostname ip-10-0-0-62.ca-central-1.compute.internal
+    ProxyCommand ssh jump@prod_nbc2-bastion -W %h:%p
+
+Host prod_nbc2-web-2
+    Hostname ip-10-0-2-78.ca-central-1.compute.internal
+    ProxyCommand ssh jump@prod_nbc2-bastion -W %h:%p
+
+Host prod_nbc2-work-1
+    Hostname ip-10-0-1-190.ca-central-1.compute.internal
+    ProxyCommand ssh jump@prod_nbc2-bastion -W %h:%p
+
+Host prod_nbc2-work-2
+    Hostname ip-10-0-3-181.ca-central-1.compute.internal
+    ProxyCommand ssh jump@prod_nbc2-bastion -W %h:%p
+
+# production_can
+Host prod_can-bastion
+    Hostname 35.182.139.57
+    Port 54321
+
+Host prod_can-cache
+    Hostname ip-10-0-1-52.ca-central-1.compute.internal
+    ProxyCommand ssh jump@prod_can-bastion -W %h:%p
+
+Host prod_can-cron
+    Hostname ip-10-0-1-187.ca-central-1.compute.internal
+    ProxyCommand ssh jump@prod_can-bastion -W %h:%p
+
+Host prod_can-sync-1
+    Hostname ip-10-0-0-18.ca-central-1.compute.internal
+    ProxyCommand ssh jump@prod_can-bastion -W %h:%p
+
+Host prod_can-sync-2
+    Hostname ip-10-0-2-78.ca-central-1.compute.internal
+    ProxyCommand ssh jump@prod_can-bastion -W %h:%p
+
+Host prod_can-web-1
+    Hostname ip-10-0-0-237.ca-central-1.compute.internal
+    ProxyCommand ssh jump@prod_can-bastion -W %h:%p
+
+Host prod_can-web-2
+    Hostname ip-10-0-2-128.ca-central-1.compute.internal
+    ProxyCommand ssh jump@prod_can-bastion -W %h:%p
+
+Host prod_can-work-1
+    Hostname ip-10-0-1-123.ca-central-1.compute.internal
+    ProxyCommand ssh jump@prod_can-bastion -W %h:%p
+
+Host prod_can-work-2
+    Hostname ip-10-0-3-144.ca-central-1.compute.internal
+    ProxyCommand ssh jump@prod_can-bastion -W %h:%p
+
+# preview_pwc
+Host pre_pwc-bastion
+    Hostname 35.158.56.78
+    Port 54321
+
+Host pre_pwc-cache
+    Hostname ip-10-0-1-75.eu-central-1.compute.internal
+    ProxyCommand ssh jump@pre_pwc-bastion -W %h:%p
+
+Host pre_pwc-cron
+    Hostname ip-10-0-1-92.eu-central-1.compute.internal
+    ProxyCommand ssh jump@pre_pwc-bastion -W %h:%p
+
+Host pre_pwc-web-1
+    Hostname ip-10-0-0-93.eu-central-1.compute.internal
+    ProxyCommand ssh jump@pre_pwc-bastion -W %h:%p
+
+Host pre_pwc-web-2
+    Hostname ip-10-0-2-146.eu-central-1.compute.internal
+    ProxyCommand ssh jump@pre_pwc-bastion -W %h:%p
+
+Host pre_pwc-work-1
+    Hostname ip-10-0-1-12.eu-central-1.compute.internal
+    ProxyCommand ssh jump@pre_pwc-bastion -W %h:%p
+
+Host pre_pwc-work-2
+    Hostname ip-10-0-3-46.eu-central-1.compute.internal
+    ProxyCommand ssh jump@pre_pwc-bastion -W %h:%p
+
+Host pre_pwc-gconn-1
+    Hostname ip-10-0-2-53.eu-central-1.compute.internal
+    ProxyCommand ssh jump@pre_pwc-bastion -W %h:%p
+
+Host pre_pwc-gconn-2
+    Hostname ip-10-0-3-91.eu-central-1.compute.internal
+    ProxyCommand ssh jump@pre_pwc-bastion -W %h:%p
+
+Host pre_pwc-data
+    Hostname ip-10-0-0-163.eu-central-1.compute.internal
+    ProxyCommand ssh jump@pre_pwc-bastion -W %h:%p
+
+# prodcopy_pwc
+Host prodcopy_pwc-bastion
+    Hostname ec2-18-196-71-56.eu-central-1.compute.amazonaws.com
+    Port 54321
+
+Host prodcopy_pwc-cache
+    Hostname ip-10-0-1-28.eu-central-1.compute.internal
+    ProxyCommand ssh jump@prodcopy_pwc-bastion -W %h:%p
+
+Host prodcopy_pwc-cron
+    Hostname ip-10-0-1-209.eu-central-1.compute.internal
+    ProxyCommand ssh jump@prodcopy_pwc-bastion -W %h:%p
+
+Host prodcopy_pwc-web-1
+    Hostname ip-10-0-0-75.eu-central-1.compute.internal
+    ProxyCommand ssh jump@prodcopy_pwc-bastion -W %h:%p
+
+Host prodcopy_pwc-web-2
+    Hostname ip-10-0-2-249.eu-central-1.compute.internal
+    ProxyCommand ssh jump@prodcopy_pwc-bastion -W %h:%p
+
+Host prodcopy_pwc-work-1
+    Hostname ip-10-0-1-15.eu-central-1.compute.internal
+    ProxyCommand ssh jump@prodcopy_pwc-bastion -W %h:%p
+
+Host prodcopy_pwc-work-2
+    Hostname ip-10-0-3-146.eu-central-1.compute.internal
+    ProxyCommand ssh jump@prodcopy_pwc-bastion -W %h:%p
+
+Host prodcopy_pwc-gconn-1
+    Hostname ip-10-0-2-140.eu-central-1.compute.internal
+    ProxyCommand ssh jump@prodcopy_pwc-bastion -W %h:%p
+
+Host prodcopy_pwc-gconn-2
+    Hostname ip-10-0-3-36.eu-central-1.compute.internal
+    ProxyCommand ssh jump@prodcopy_pwc-bastion -W %h:%p
+
+
+# Test servers
+Host pwc_test_aurora-work-1
+    Hostname ip-10-0-0-238.eu-central-1.compute.internal
+    ProxyCommand ssh jump@pre_pwc-bastion -W %h:%p
+
+Host pwc_test_aurora-work-2
+    Hostname ip-10-0-0-253.eu-central-1.compute.internal
+    ProxyCommand ssh jump@pre_pwc-bastion -W %h:%p
+
+Host pwc_test_aurora-work-3
+    Hostname ip-10-0-0-144.eu-central-1.compute.internal
+    ProxyCommand ssh jump@pre_pwc-bastion -W %h:%p
+
+Host pwc_test_rds-work-1
+    Hostname ip-10-0-0-137.eu-central-1.compute.internal
+    ProxyCommand ssh jump@pre_pwc-bastion -W %h:%p
+
+Host pwc_test_rds-work-2
+    Hostname ip-10-0-0-198.eu-central-1.compute.internal
+    ProxyCommand ssh jump@pre_pwc-bastion -W %h:%p
+
+Host pwc_test_rds-work-3
+    Hostname ip-10-0-0-173.eu-central-1.compute.internal
+    ProxyCommand ssh jump@pre_pwc-bastion -W %h:%p
+
+# production_bird
+Host prod_bird-bastion
+    Hostname ec2-34-246-27-104.eu-west-1.compute.amazonaws.com
+    Port 54321
+
+Host prod_bird-cache
+    Hostname ip-10-0-1-234.eu-west-1.compute.internal
+    ProxyCommand ssh jump@prod_bird-bastion -W %h:%p
+
+Host prod_bird-cron
+    Hostname ip-10-0-1-155.eu-west-1.compute.internal
+    ProxyCommand ssh jump@prod_bird-bastion -W %h:%p
+
+Host prod_bird-web-1
+    Hostname ip-10-0-0-148.eu-west-1.compute.internal
+    ProxyCommand ssh jump@prod_bird-bastion -W %h:%p
+
+Host prod_bird-web-2
+    Hostname ip-10-0-2-144.eu-west-1.compute.internal
+    ProxyCommand ssh jump@prod_bird-bastion -W %h:%p
+
+Host prod_bird-work-1
+    Hostname ip-10-0-1-73.eu-west-1.compute.internal
+    ProxyCommand ssh jump@prod_bird-bastion -W %h:%p
+
+Host prod_bird-work-2
+    Hostname ip-10-0-3-30.eu-west-1.compute.internal
+    ProxyCommand ssh jump@prod_bird-bastion -W %h:%p
+
+# production_tam
+Host prod_tam-bastion
+    Hostname ec2-18-184-251-185.eu-central-1.compute.amazonaws.com
+    Port 54321
+
+Host prod_tam-cache
+    Hostname ip-10-0-1-18.eu-central-1.compute.internal
+    ProxyCommand ssh jump@prod_tam-bastion -W %h:%p
+
+Host prod_tam-cron
+    Hostname ip-10-0-1-40.eu-central-1.compute.internal
+    ProxyCommand ssh jump@prod_tam-bastion -W %h:%p
+
+Host prod_tam-web-1
+    Hostname ip-10-0-0-212.eu-central-1.compute.internal
+    ProxyCommand ssh jump@prod_tam-bastion -W %h:%p
+
+Host prod_tam-web-2
+    Hostname ip-10-0-2-37.eu-central-1.compute.internal
+    ProxyCommand ssh jump@prod_tam-bastion -W %h:%p
+
+Host prod_tam-work-1
+    Hostname ip-10-0-1-150.eu-central-1.compute.internal
+    ProxyCommand ssh jump@prod_tam-bastion -W %h:%p
+
+Host prod_tam-work-2
+    Hostname ip-10-0-3-80.eu-central-1.compute.internal
+    ProxyCommand ssh jump@prod_tam-bastion -W %h:%p
+
+
+# rabbitmq for staging
+Host staging_crm_rabbitmq-bastion
+    Hostname ec2-34-230-70-109.compute-1.amazonaws.com
+    Port 54321
+
+Host staging_crm_rabbitmq-rmq-1
+    Hostname ip-10-0-0-252.ec2.internal
+    ProxyCommand ssh jump@staging_crm_rabbitmq-bastion -W %h:%p
+
+Host staging_crm_rabbitmq-rmq-2
+    Hostname ip-10-0-2-99.ec2.internal
+    ProxyCommand ssh jump@staging_crm_rabbitmq-bastion -W %h:%p
+
+Host staging_crm_rabbitmq-rmq-3
+    Hostname ip-10-0-4-60.ec2.internal
+    ProxyCommand ssh jump@staging_crm_rabbitmq-bastion -W %h:%p
+
+# rabbitmq for production useast
+
+Host crm_rmq_usea-bastion
+    Hostname ec2-34-235-139-11.compute-1.amazonaws.com
+    Port 54321
+
+Host crm_rmq_usea-rmq-1
+    Hostname ip-10-0-0-75.ec2.internal
+    ProxyCommand ssh jump@crm_rmq_usea-bastion -W %h:%p
+
+Host crm_rmq_usea-rmq-2
+    Hostname ip-10-0-2-138.ec2.internal
+    ProxyCommand ssh jump@crm_rmq_usea-bastion -W %h:%p
+
+Host crm_rmq_usea-rmq-3
+    Hostname ip-10-0-4-16.ec2.internal
+    ProxyCommand ssh jump@crm_rmq_usea-bastion -W %h:%p
+
+# DES Staging Servers
+Host des_staging-bastion
+    Hostname ec2-34-226-250-200.compute-1.amazonaws.com
+    Port 54321
+
+Host des_staging-web-1
+    Hostname ip-10-0-0-166.ec2.internal
+    ProxyCommand ssh jump@des_staging-bastion -W %h:%p
+
+Host des_staging-web-2
+    Hostname ip-10-0-2-200.ec2.internal
+    ProxyCommand ssh jump@des_staging-bastion -W %h:%p
+
+Host des_staging-work-1
+    Hostname ip-10-0-1-176.ec2.internal
+    ProxyCommand ssh jump@des_staging-bastion -W %h:%p
+
+Host des_staging-work-2
+    Hostname ip-10-0-3-4.ec2.internal
+    ProxyCommand ssh jump@des_staging-bastion -W %h:%p
+
+# PWC LoadTesting Servers
+Host prod_ca_loadtest-bastion
+    Hostname ec2-3-120-155-136.eu-central-1.compute.amazonaws.com
+    Port 54321
+
+Host prod_ca_loadtest-cache
+    Hostname ip-10-0-1-170.eu-central-1.compute.internal
+    ProxyCommand ssh jump@prod_ca_loadtest-bastion -W %h:%p
+
+Host prod_ca_loadtest-cron
+    Hostname ip-10-0-1-61.eu-central-1.compute.internal
+    ProxyCommand ssh jump@prod_ca_loadtest-bastion -W %h:%p
+
+Host prod_ca_loadtest-web-1
+    Hostname ip-10-0-0-99.eu-central-1.compute.internal
+    ProxyCommand ssh jump@prod_ca_loadtest-bastion -W %h:%p
+
+Host prod_ca_loadtest-web-2
+    Hostname ip-10-0-2-179.eu-central-1.compute.internal
+    ProxyCommand ssh jump@prod_ca_loadtest-bastion -W %h:%p
+
+Host prod_ca_loadtest-web-3
+    Hostname ip-10-0-4-14.eu-central-1.compute.internal
+    ProxyCommand ssh jump@prod_ca_loadtest-bastion -W %h:%p
+
+Host prod_ca_loadtest-work-1
+    Hostname ip-10-0-1-224.eu-central-1.compute.internal
+    ProxyCommand ssh jump@prod_ca_loadtest-bastion -W %h:%p
+
+Host prod_ca_loadtest-work-2
+    Hostname ip-10-0-3-5.eu-central-1.compute.internal
+    ProxyCommand ssh jump@prod_ca_loadtest-bastion -W %h:%p
+
+Host prod_ca_loadtest-work-3
+    Hostname ip-10-0-5-157.eu-central-1.compute.internal
+    ProxyCommand ssh jump@prod_ca_loadtest-bastion -W %h:%p
+
+# UAT-EU Ireland Servers
+Host uat_eu-bastion
+    Hostname ec2-18-202-112-39.eu-west-1.compute.amazonaws.com
+    Port 54321
+
+Host uat_eu-cache
+    Hostname ip-10-0-1-228.eu-west-1.compute.internal
+    ProxyCommand ssh jump@uat_eu-bastion -W %h:%p
+
+Host uat_eu-cron
+    Hostname ip-10-0-1-29.eu-west-1.compute.internal
+    ProxyCommand ssh jump@uat_eu-bastion -W %h:%p
+
+Host uat_eu-web-1
+    Hostname ip-10-0-0-117.eu-west-1.compute.internal
+    ProxyCommand ssh jump@uat_eu-bastion -W %h:%p
+
+Host uat_eu-web-2
+    Hostname ip-10-0-2-150.eu-west-1.compute.internal
+    ProxyCommand ssh jump@uat_eu-bastion -W %h:%p
+
+Host uat_eu-work-1
+    Hostname ip-10-0-1-12.eu-west-1.compute.internal
+    ProxyCommand ssh jump@uat_eu-bastion -W %h:%p
+
+Host uat_eu-work-2
+    Hostname ip-10-0-3-235.eu-west-1.compute.internal
+    ProxyCommand ssh jump@uat_eu-bastion -W %h:%p
+
+# DES Production Servers
+Host des_prod-bastion
+    Hostname ec2-54-160-159-14.compute-1.amazonaws.com
+    Port 54321
+
+Host des_prod-web-1
+    Hostname ip-10-0-0-129.ec2.internal
+    ProxyCommand ssh jump@des_prod-bastion -W %h:%p
+
+Host des_prod-web-2
+    Hostname ip-10-0-2-142.ec2.internal
+    ProxyCommand ssh jump@des_prod-bastion -W %h:%p
+
+Host des_prod-work-1
+    Hostname ip-10-0-1-129.ec2.internal
+    ProxyCommand ssh jump@des_prod-bastion -W %h:%p
+
+Host des_prod-work-2
+    Hostname ip-10-0-3-120.ec2.internal
+    ProxyCommand ssh jump@des_prod-bastion -W %h:%p
+
+# PWC Maven7 servers
+Host prod_pwc_maven7-bastion
+    Hostname ec2-3-121-35-121.eu-central-1.compute.amazonaws.com
+    Port 54321
+
+Host prod_pwc_maven7-gconn
+    Hostname ip-10-0-0-9.eu-central-1.compute.internal
+    ProxyCommand ssh jump@prod_pwc_maven7-bastion -W %h:%p
+
+# production_sb servers
+Host prod_sb-bastion
+    Hostname ec2-99-79-15-91.ca-central-1.compute.amazonaws.com
+    Port 54321
+
+Host prod_sb-cache
+    Hostname ip-10-0-1-103.ca-central-1.compute.internal
+    ProxyCommand ssh jump@prod_sb-bastion -W %h:%p
+
+Host prod_sb-cron
+    Hostname ip-10-0-1-30.ca-central-1.compute.internal
+    ProxyCommand ssh jump@prod_sb-bastion -W %h:%p
+
+Host prod_sb-web-1
+    Hostname ip-10-0-0-185.ca-central-1.compute.internal
+    ProxyCommand ssh jump@prod_sb-bastion -W %h:%p
+
+Host prod_sb-web-2
+    Hostname ip-10-0-2-218.ca-central-1.compute.internal
+    ProxyCommand ssh jump@prod_sb-bastion -W %h:%p
+
+Host prod_sb-work-1
+    Hostname ip-10-0-1-84.ca-central-1.compute.internal
+    ProxyCommand ssh jump@prod_sb-bastion -W %h:%p
+
+Host prod_sb-work-2
+    Hostname ip-10-0-3-187.ca-central-1.compute.internal
+    ProxyCommand ssh jump@prod_sb-bastion -W %h:%p
+
+# PWC Maven7 temp servers
+Host prod_pwc_maven7_temp-bastion
+    Hostname ec2-3-122-147-161.eu-central-1.compute.amazonaws.com
+    Port 54321
+
+Host prod_pwc_maven7_temp-gconn
+    Hostname ip-10-0-0-199.eu-central-1.compute.internal
+    ProxyCommand ssh jump@prod_pwc_maven7_temp-bastion -W %h:%p
+
+Host prod_pwc_maven7_temp-web-1
+    Hostname ip-10-0-0-104.eu-central-1.compute.internal
+    ProxyCommand ssh jump@prod_pwc_maven7_temp-bastion -W %h:%p
+
+Host prod_pwc_maven7_temp-web-2
+    Hostname ip-10-0-2-39.eu-central-1.compute.internal
+    ProxyCommand ssh jump@prod_pwc_maven7_temp-bastion -W %h:%p
+
+Host prod_pwc_maven7_temp-work-1
+    Hostname ip-10-0-1-72.eu-central-1.compute.internal
+    ProxyCommand ssh jump@prod_pwc_maven7_temp-bastion -W %h:%p
+
+Host prod_pwc_maven7_temp-work-2
+    Hostname ip-10-0-3-224.eu-central-1.compute.internal
+    ProxyCommand ssh jump@prod_pwc_maven7_temp-bastion -W %h:%p
+
+# Dechert servers
+Host prod_dc-bastion
+  Hostname ec2-54-86-13-210.compute-1.amazonaws.com
+  Port 54321
+
+Host prod_dc-cache
+  Hostname ip-10-0-1-137.ec2.internal
+  ProxyCommand ssh jump@prod_dc-bastion -W %h:%p
+
+Host prod_dc-cron
+  Hostname ip-10-0-1-80.ec2.internal
+  ProxyCommand ssh jump@prod_dc-bastion -W %h:%p
+
+Host prod_dc-web-1
+  Hostname ip-10-0-0-86.ec2.internal
+  ProxyCommand ssh jump@prod_dc-bastion -W %h:%p
+
+Host prod_dc-web-2
+  Hostname ip-10-0-2-141.ec2.internal
+  ProxyCommand ssh jump@prod_dc-bastion -W %h:%p
+
+Host prod_dc-work-1
+  Hostname ip-10-0-1-214.ec2.internal
+  ProxyCommand ssh jump@prod_dc-bastion -W %h:%p
+
+Host prod_dc-work-2
+  Hostname ip-10-0-3-75.ec2.internal
+  ProxyCommand ssh jump@prod_dc-bastion -W %h:%p
+
+# Introhive QA servers
+Host qa-bastion
+  Hostname ec2-18-210-208-182.compute-1.amazonaws.com
+  Port 54321
+
+Host qa-cache
+  Hostname ip-10-0-1-138.ec2.internal
+  ProxyCommand ssh jump@qa-bastion -W %h:%p
+
+Host qa-cron
+  Hostname ip-10-0-1-178.ec2.internal
+  ProxyCommand ssh jump@qa-bastion -W %h:%p
+
+Host qa-web-1
+  Hostname ip-10-0-0-64.ec2.internal
+  ProxyCommand ssh jump@qa-bastion -W %h:%p
+
+Host qa-web-2
+  Hostname ip-10-0-2-130.ec2.internal
+  ProxyCommand ssh jump@qa-bastion -W %h:%p
+
+Host qa-work-1
+  Hostname ip-10-0-1-21.ec2.internal
+  ProxyCommand ssh jump@qa-bastion -W %h:%p
+
+# HoganLovells servers
+Host prod_hl-bastion
+  Hostname ec2-52-48-9-162.eu-west-1.compute.amazonaws.com
+  Port 54321
+
+Host prod_hl-cache
+  Hostname ip-10-0-1-179.eu-west-1.compute.internal
+  ProxyCommand ssh jump@prod_hl-bastion -W %h:%p
+
+Host prod_hl-cron
+  Hostname ip-10-0-1-62.eu-west-1.compute.internal
+  ProxyCommand ssh jump@prod_hl-bastion -W %h:%p
+
+Host prod_hl-web-1
+  Hostname ip-10-0-0-43.eu-west-1.compute.internal
+  ProxyCommand ssh jump@prod_hl-bastion -W %h:%p
+
+Host prod_hl-web-2
+  Hostname ip-10-0-2-63.eu-west-1.compute.internal
+  ProxyCommand ssh jump@prod_hl-bastion -W %h:%p
+
+Host prod_hl-work-1
+  Hostname ip-10-0-1-90.eu-west-1.compute.internal
+  ProxyCommand ssh jump@prod_hl-bastion -W %h:%p
+
+Host prod_hl-work-2
+  Hostname ip-10-0-3-198.eu-west-1.compute.internal
+  ProxyCommand ssh jump@prod_hl-bastion -W %h:%p
+
+# BereskinParr servers
+Host prod_bp-bastion
+  Hostname ec2-99-79-93-105.ca-central-1.compute.amazonaws.com
+  Port 54321
+
+Host prod_bp-cache
+  Hostname ip-10-0-1-161.ca-central-1.compute.internal
+  ProxyCommand ssh jump@prod_bp-bastion -W %h:%p
+
+Host prod_bp-cron
+  Hostname ip-10-0-1-87.ca-central-1.compute.internal
+  ProxyCommand ssh jump@prod_bp-bastion -W %h:%p
+
+Host prod_bp-web-1
+  Hostname ip-10-0-0-83.ca-central-1.compute.internal
+  ProxyCommand ssh jump@prod_bp-bastion -W %h:%p
+
+Host prod_bp-web-2
+  Hostname ip-10-0-2-242.ca-central-1.compute.internal
+  ProxyCommand ssh jump@prod_bp-bastion -W %h:%p
+
+Host prod_bp-work-1
+  Hostname ip-10-0-1-172.ca-central-1.compute.internal
+  ProxyCommand ssh jump@prod_bp-bastion -W %h:%p
+
+Host prod_bp-work-2
+  Hostname ip-10-0-3-29.ca-central-1.compute.internal
+  ProxyCommand ssh jump@prod_bp-bastion -W %h:%p

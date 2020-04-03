@@ -2,12 +2,12 @@
 # export PATH=$HOME/bin:/usr/local/bin:$PATH
 
 # Path to your oh-my-zsh installation.
-export ZSH=/Users/scarr/.oh-my-zsh
+export ZSH="/Users/stephencarr/.oh-my-zsh"
 
 # Set name of the theme to load. Optionally, if you set this to "random"
 # it'll load a random theme each time that oh-my-zsh is loaded.
 # See https://github.com/robbyrussell/oh-my-zsh/wiki/Themes
-ZSH_THEME="spaceship"
+ZSH_THEME="robbyrussell"
 
 # Spaceship theme variables
 
@@ -83,7 +83,7 @@ SPACESHIP_GIT_STATUS_DIVERGED="⇕"
 plugins=(git)
 
 source $ZSH/oh-my-zsh.sh
-
+source ~/dev/dotfiles/bash/belt.bash
 
 # User configuration
 
@@ -125,3 +125,33 @@ alias ls="ls -GFh ${colorflag}"
 alias ll="ls -AlFh"
 alias la="ls -laF ${colorflag}" # List all files colorized in long format, including dot files
 alias lsd='ls -lF ${colorflag} | grep "^d"' # List only directories
+
+alias startihdev="bundle exec passenger start -a 0.0.0.0 -p 3000 --max-pool-size 1 --spawn-method conservative -e development"
+
+alias subl="/Applications/Sublime\ Text.app/Contents/SharedSupport/bin/subl"
+
+export NVM_DIR="$HOME/.nvm"
+[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
+[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
+
+  # Set Spaceship ZSH as a prompt
+  autoload -U promptinit; promptinit
+  prompt spaceship
+
+# Add RVM to PATH for scripting. Make sure this is the last PATH variable change.
+export PATH="$PATH:$HOME/.rvm/bin"
+
+# Imagemagick to PATH
+export PATH="/usr/local/opt/imagemagick@6/bin:$PATH"
+
+# Add Postgress App to PATH
+export PATH="/Applications/Postgres.app/Contents/Versions/9.6/bin:$PATH"
+
+export PATH="~/Qt5.5.0/5.5/clang_64/bin/:$PATH"
+# export PATH="/usr/local/opt/qt/bin:$PATH"export PATH="/usr/local/opt/imagemagick@6/bin:$PATH"
+
+# eval $(thefuck --alias)
+
+ssh-add -A 2>/dev/null # Adds all known identities to the SSH agent
+
+# source "/Users/stephencarr/.oh-my-zsh/custom/themes/spaceship.zsh-theme"

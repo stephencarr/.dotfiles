@@ -1,5 +1,5 @@
 [init]
-  templatedir = ~/.git_template
+	templatedir = ~/.git_template/template
 [push]
   default = current
 [color]
@@ -23,10 +23,14 @@
   pp = !"echo 'Pull'; git pull; echo 'Push'; git put"
   put = push -u origin HEAD
   putf = push -u origin HEAD --force-with-lease
+  ignore = update-index --assume-unchanged
+  unignore = update-index --no-assume-unchanged
+  ignored = !git ls-files -v | grep "^[[:lower:]]"
+  cleanup = "!git branch --merged | grep  -v '\\*\\|master\\|develop' | xargs -n 1 git branch -d"
 [core]
   excludesfile = ~/.gitignore
   autocrlf = input
-  editor = /usr/bin/vim
+  editor = vim
 [merge]
   ff = only
 [commit]
@@ -57,4 +61,6 @@
   log = true
 [user]
 	name = Stephen Carr
-	email = stephencarr@gmail.com
+	email = stephen.carr@introhive.com
+[credential]
+	helper = osxkeychain
