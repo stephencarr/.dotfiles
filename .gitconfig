@@ -1,7 +1,11 @@
 [init]
 	templatedir = ~/.git_template/template
+	defaultBranch = main
 [push]
   default = current
+  autoSetupRemote = true
+[pull]
+  rebase = true
 [color]
   ui = auto
 [apply]
@@ -26,7 +30,10 @@
   ignore = update-index --assume-unchanged
   unignore = update-index --no-assume-unchanged
   ignored = !git ls-files -v | grep "^[[:lower:]]"
-  cleanup = "!git branch --merged | grep  -v '\\*\\|master\\|develop' | xargs -n 1 git branch -d"
+  cleanup = "!git branch --merged | grep  -v '\\*\\|master\\|main\\|develop' | xargs -n 1 git branch -d"
+  sw = switch
+  restore = restore
+  graph = log --graph --oneline --decorate --all
 [core]
   excludesfile = ~/.gitignore
   autocrlf = input
@@ -53,6 +60,9 @@
   frag = magenta bold
   old = red bold
   new = green bold
+[diff]
+  colorMoved = default
+  algorithm = histogram
 [color "status"]
   added = yellow
   changed = green
@@ -62,5 +72,7 @@
 [user]
 	name = Stephen Carr
 	email = stephen.carr@introhive.com
-[credential]
-	helper = osxkeychain
+# Credential helper is set conditionally based on OS
+# macOS: Run `git config --global credential.helper osxkeychain`
+# Linux: Run `git config --global credential.helper cache`
+# Windows: Run `git config --global credential.helper manager-core`

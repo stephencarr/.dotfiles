@@ -4,53 +4,71 @@ A comprehensive, cross-platform dotfiles setup for a productive development envi
 
 ## Features
 
-- Automated installation with dependency checking
-- Cross-platform support (macOS and Linux)
-- Idempotent installation (safe to run multiple times)
-- Automatic backups of existing configurations
-- Modern, well-documented configurations
-- Easy uninstallation
+- **Modern 2025 Stack** - Using current best practices and latest tools
+- **Automated Installation** - One command setup with dependency checking
+- **Cross-Platform** - Works on macOS and Linux
+- **Idempotent** - Safe to run multiple times
+- **Smart Backups** - Automatic timestamped backups of existing configs
+- **True Color Support** - 24-bit color in terminal, vim, and tmux
+- **Fast & Efficient** - Modern alternatives (fzf, ripgrep, eza, bat)
+- **Easy Removal** - Clean uninstall script included
 
 ## What's Included
 
 ### Core Configurations
 
-- **Vim** (`.vimrc`) - Feature-rich Vim configuration with:
+- **Vim** (`.vimrc`) - Modern Vim configuration with:
   - vim-plug plugin manager
-  - Sensible defaults for development
-  - Support for modern file types (JSX, etc.)
-  - CtrlP fuzzy finder
+  - **fzf.vim** - Modern fuzzy finder (replaces CtrlP)
+  - **vim-fugitive** - Best-in-class Git integration
+  - **lightline** - Beautiful status line
+  - **vim-polyglot** - 100+ language syntax support
+  - **gitgutter** - Git diff in gutter
+  - **True color support** (24-bit)
+  - Multiple modern colorschemes (gruvbox, onedark, solarized)
   - Persistent undo history
-  - Solarized color scheme
+  - Smart defaults and keybindings
 
-- **Tmux** (`.tmux.conf`) - Enhanced tmux configuration with:
+- **Tmux** (`.tmux.conf`) - Modern tmux configuration with:
+  - **True color support** (24-bit)
   - Custom prefix key (Ctrl+s)
-  - Vim-like split keybindings
-  - Mouse support
-  - Plugin manager (TPM) support
+  - Vim-like split keybindings and copy mode
+  - Mouse support with modern scrolling
+  - Plugin manager (TPM) with useful plugins
+  - Auto-restore sessions (tmux-continuum)
+  - Enhanced copy/paste (tmux-yank)
   - Attractive status bar
-  - Session persistence (tmux-resurrect, tmux-continuum)
 
-- **Zsh** (`zsh/.zshrc`) - Powerful zsh configuration with:
-  - oh-my-zsh integration
-  - Spaceship prompt support
-  - Useful aliases
-  - NVM, RVM, and other version manager support
+- **Zsh** (`zsh/.zshrc`) - Modern zsh configuration with:
+  - oh-my-zsh with 15+ useful plugins
+  - **Starship prompt** - Fast, cross-shell, modern prompt (preferred)
+  - Spaceship prompt as fallback
+  - **zsh-autosuggestions** - Fish-like command suggestions
+  - **zsh-syntax-highlighting** - Command syntax highlighting
+  - Modern command aliases (eza, bat, ripgrep, fd)
+  - Smart history management (50k entries)
+  - Better directory navigation
+  - NVM, RVM, and version manager support
   - Conditional loading for cross-platform compatibility
 
-- **Git** (`.gitconfig`) - Productive git configuration with:
-  - Useful aliases (co, st, lg, lf, etc.)
-  - Better diff and log formatting
+- **Git** (`.gitconfig`) - Modern git configuration with:
+  - **Default branch: main** (not master)
+  - **Pull rebase by default** - Cleaner history
+  - **Auto-setup remote** - Easier push workflow
+  - **Better diff algorithm** - Histogram algorithm
+  - **Color moved detection** - See moved code in diffs
+  - Useful aliases (co, st, lg, lf, sw, restore, graph)
   - Auto-prune on fetch
-  - Colored output
+  - Force-with-lease for safer force pushes
+  - Updated cleanup to handle main/master
 
 - **SSH** (`ssh/config`) - SSH configuration (optional)
 
 ### Tools
 
-- **install.sh** - Automated installation script
+- **install.sh** - Automated installation script with OS detection
 - **uninstall.sh** - Clean removal of symlinks
-- **Brewfile** - Package management for macOS (Homebrew)
+- **Brewfile** - Modern package management for macOS (70+ curated tools)
 
 ## Quick Start
 
@@ -87,18 +105,62 @@ A comprehensive, cross-platform dotfiles setup for a productive development envi
 5. Complete the setup:
    - Open vim and run `:PlugInstall` to install vim plugins
    - Open tmux and press `Ctrl+s` then `I` to install tmux plugins
+   - Install modern CLI tools (recommended, see below)
 
-### macOS Additional Setup
+### Modern CLI Tools (Recommended)
 
-If you're on macOS and want to install the recommended tools:
+These modern alternatives make your terminal experience significantly better:
 
 ```bash
-# Install Homebrew if not already installed
-/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+# On macOS (via Homebrew)
+brew install starship      # Modern cross-shell prompt
+brew install eza           # Modern ls replacement
+brew install bat           # Cat with syntax highlighting
+brew install ripgrep       # Fast grep (rg)
+brew install fd            # Fast find
+brew install fzf           # Fuzzy finder
+brew install zoxide        # Smarter cd
+brew install lazygit       # Terminal UI for git
+brew install btop          # Better system monitor
 
-# Install packages from Brewfile
+# Or install everything at once
 brew bundle --file=~/.dotfiles/Brewfile
 ```
+
+On Linux, install via your package manager or see individual tool docs.
+
+## What's New - 2025 Modernization
+
+This dotfiles setup has been fully modernized with current best practices:
+
+### Replaced
+- ❌ ~~CtrlP~~ → ✅ **fzf** - Faster, more powerful fuzzy finder
+- ❌ ~~256 colors~~ → ✅ **True color (24-bit)** - Better color rendering
+- ❌ ~~Basic plugins~~ → ✅ **Modern plugin suite** - Fugitive, polyglot, gitgutter, etc.
+- ❌ ~~Spaceship only~~ → ✅ **Starship prompt** - Cross-shell, faster, more configurable
+- ❌ ~~ls~~ → ✅ **eza/exa** - Modern, colorful directory listings
+- ❌ ~~cat~~ → ✅ **bat** - Syntax highlighting for cat
+- ❌ ~~grep~~ → ✅ **ripgrep** - Blazingly fast search
+- ❌ ~~find~~ → ✅ **fd** - User-friendly find alternative
+
+### Added
+- ✅ Git: `defaultBranch = main`, `pull.rebase = true`, `colorMoved`, histogram diff
+- ✅ Git: `sw` (switch) and `restore` aliases for modern git commands
+- ✅ Zsh: 15+ oh-my-zsh plugins for better productivity
+- ✅ Zsh: zsh-autosuggestions and zsh-syntax-highlighting
+- ✅ Zsh: Smart history (50k entries) with deduplication
+- ✅ Tmux: True color support and modern vi copy mode
+- ✅ Tmux: Additional plugins (yank, open, cpu)
+- ✅ Vim: Comprehensive plugin suite for modern development
+- ✅ Comprehensive Brewfile with 70+ curated modern tools
+
+### Improved
+- ⚡ Faster shell startup with conditional loading
+- 🎨 Better color support across all tools
+- 🔧 More intuitive keybindings and aliases
+- 📦 Better package management and installation
+- 🌍 Better cross-platform compatibility
+- 📚 Comprehensive documentation
 
 ## What the Installation Does
 
@@ -144,10 +206,20 @@ Edit `.gitconfig` and update the `[user]` section with your information:
     email = your.email@example.com
 ```
 
-### Zsh Theme
+### Shell Prompt
 
-The `.zshrc` is configured to use the Spaceship theme. To install it:
+The `.zshrc` is configured to use **Starship** as the default prompt (modern, cross-shell). If not installed, it falls back to Spaceship.
 
+**Recommended: Install Starship**
+```bash
+# macOS
+brew install starship
+
+# Linux
+curl -sS https://starship.rs/install.sh | sh
+```
+
+**Alternative: Install Spaceship** (zsh-only)
 ```bash
 git clone https://github.com/spaceship-prompt/spaceship-prompt.git "$ZSH_CUSTOM/themes/spaceship-prompt" --depth=1
 ln -s "$ZSH_CUSTOM/themes/spaceship-prompt/spaceship.zsh-theme" "$ZSH_CUSTOM/themes/spaceship.zsh-theme"
@@ -236,8 +308,12 @@ brew bundle --file=~/.dotfiles/Brewfile
 
 ### Vim
 
-- CtrlP: `Ctrl+p` - Fuzzy file finder
+- `Ctrl+p` - Fuzzy file finder (fzf)
+- `Ctrl+b` - Buffer list (fzf)
+- `Ctrl+f` - Search in files with ripgrep (fzf)
+- `<leader>c` - Command palette (fzf)
 - Auto pairs: Automatic bracket/quote pairing
+- Fugitive: `:Git` for git commands, `:Gdiff`, `:Gblame`, etc.
 - Standard vim keybindings enhanced with sensible defaults
 
 ### Git Aliases
@@ -250,7 +326,10 @@ brew bundle --file=~/.dotfiles/Brewfile
 - `git aa`: add all
 - `git ap`: add patch
 - `git put`: push to origin HEAD
-- `git cleanup`: delete merged branches
+- `git sw`: switch branches (modern git)
+- `git restore`: restore files (modern git)
+- `git graph`: visual commit graph
+- `git cleanup`: delete merged branches (handles both main/master)
 
 ## Contributing
 

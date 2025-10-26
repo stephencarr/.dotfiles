@@ -168,6 +168,27 @@ install_tpm() {
     fi
 }
 
+# Install Starship prompt
+install_starship() {
+    if command_exists starship; then
+        info "Starship already installed"
+        return
+    fi
+
+    info "Starship prompt not found. Installation recommended for modern shell experience."
+    read -p "Install Starship now? (y/N) " -n 1 -r
+    echo
+    if [[ $REPLY =~ ^[Yy]$ ]]; then
+        info "Installing Starship..."
+        if [ "$OS" == "macos" ] && command_exists brew; then
+            brew install starship
+        else
+            curl -sS https://starship.rs/install.sh | sh
+        fi
+        success "Starship installed"
+    fi
+}
+
 # Link dotfiles
 link_dotfiles() {
     info "Linking dotfiles..."
@@ -258,6 +279,7 @@ main() {
     install_vim_plug
     install_oh_my_zsh
     install_tpm
+    install_starship
 
     echo
     setup_macos
@@ -278,7 +300,16 @@ main() {
     echo "  1. Restart your terminal or run: source ~/.zshrc"
     echo "  2. Open vim and run :PlugInstall to install vim plugins"
     echo "  3. Open tmux and press prefix (Ctrl+s) + I to install tmux plugins"
-    echo "  4. Review and customize configs as needed"
+    echo "  4. Install modern CLI tools: brew bundle (on macOS)"
+    echo "  5. Review and customize configs as needed"
+    echo
+    info "Recommended modern tools to install:"
+    echo "  - eza (modern ls): brew install eza"
+    echo "  - bat (cat with syntax): brew install bat"
+    echo "  - ripgrep (fast grep): brew install ripgrep"
+    echo "  - fd (fast find): brew install fd"
+    echo "  - fzf (fuzzy finder): brew install fzf"
+    echo "  - zoxide (smarter cd): brew install zoxide"
     echo
     info "To uninstall, run: ./uninstall.sh"
 }

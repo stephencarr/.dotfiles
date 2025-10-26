@@ -1,4 +1,7 @@
-set t_Co=256                                " Support for xterm with 256 colors (gets overriden in .gvimrc)
+" Enable true color support (24-bit)
+if has('termguicolors')
+  set termguicolors
+endif
 set relativenumber                          " Show line numbers relative to each other
 set number                                  " Show the current lines number w/ relative numbers around it
 set ruler                                   " Show ruler
@@ -50,21 +53,76 @@ set undofile
 set undolevels=1000
 set undoreload=10000
 
-" Colorscheme
+" Colorscheme - try gruvbox first, fall back to others
 syntax enable
-silent! colorscheme solarized
-highlight SignColumn ctermbg=8
+set background=dark
 
-" Set wildcard ignore for ctrlp and ack/ag
+" Try modern colorschemes, fall back gracefully
+if !exists('g:colors_name')
+  try
+    colorscheme gruvbox
+  catch
+    try
+      colorscheme onedark
+    catch
+      try
+        colorscheme solarized
+      catch
+        " Use default if nothing else available
+      endtry
+    endtry
+  endtry
+endif
+
+" Set wildcard ignore for file searches
 set wildignore+=*/tmp/*,vendor/bundle/*,*/build/*,*/Resources/*,*.so,*.swp,*.zip,*.png,*.jpg,*.jpeg,*.gif,.gitkeep
+set wildignore+=*/node_modules/*,*/.git/*,*/dist/*,*/target/*,*.pyc,*/__pycache__/*
 
 " Plugins
 call plug#begin('~/.vim/plugged')
 
+" Essential Tim Pope plugins
 Plug 'tpope/vim-sensible'
-Plug 'mxw/vim-jsx'
-Plug 'ctrlpvim/ctrlp.vim'
-Plug 'jiangmiao/auto-pairs'
-Plug 'tpope/vim-ragtag'
+Plug 'tpope/vim-fugitive'           " Git integration
+Plug 'tpope/vim-surround'           " Surround text objects
+Plug 'tpope/vim-commentary'         " Comment stuff out
+Plug 'tpope/vim-repeat'             " Repeat plugin maps
+
+" File navigation - fzf is the modern standard
+Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
+Plug 'junegunn/fzf.vim'
+
+" UI improvements
+Plug 'itchyny/lightline.vim'        " Lightweight status line
+Plug 'airblade/vim-gitgutter'       " Git diff in gutter
+
+" Language support
+Plug 'sheerun/vim-polyglot'         " Language pack (better than individual plugins)
+Plug 'jiangmiao/auto-pairs'         " Auto close brackets
+
+" Color schemes
+Plug 'morhetz/gruvbox'              " Popular modern colorscheme
+Plug 'joshdick/onedark.vim'         " Atom's One Dark theme
+Plug 'altercation/vim-colors-solarized'  " Keep solarized as option
 
 call plug#end()
+
+" FZF keybindings
+nnoremap <C-p> :Files<CR>
+nnoremap <C-b> :Buffers<CR>
+nnoremap <C-f> :Rg<CR>
+nnoremap <leader>c :Commands<CR>
+
+" Lightline configuration
+let g:lightline = {
+      \ 'active': {
+      \   'left': [ [ 'mode', 'paste' ],
+      \             [ 'gitbranch', 'readonly', 'filename', 'modified' ] ]
+      \ },
+      \ 'component_function': {
+      \   'gitbranch': 'FugitiveHead'
+      \ },
+      \ }
+
+" Hide default mode indicator (lightline shows it)
+set noshowmode
