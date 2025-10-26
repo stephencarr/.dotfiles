@@ -2,7 +2,7 @@
 # export PATH=$HOME/bin:/usr/local/bin:$PATH
 
 # Path to your oh-my-zsh installation.
-export ZSH="/Users/stephencarr/.oh-my-zsh"
+export ZSH="$HOME/.oh-my-zsh"
 
 # Set name of the theme to load. Optionally, if you set this to "random"
 # it'll load a random theme each time that oh-my-zsh is loaded.
@@ -82,8 +82,16 @@ SPACESHIP_GIT_STATUS_DIVERGED="⇕"
 # Add wisely, as too many plugins slow down shell startup.
 plugins=(git)
 
-source $ZSH/oh-my-zsh.sh
-source ~/dev/dotfiles/bash/belt.bash
+# Source oh-my-zsh if it exists
+if [ -f "$ZSH/oh-my-zsh.sh" ]; then
+  source $ZSH/oh-my-zsh.sh
+else
+  echo "Warning: oh-my-zsh not found at $ZSH"
+  echo "Install it with: sh -c \"\$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)\""
+fi
+
+# Source additional bash configs if they exist
+[ -f "$HOME/dev/dotfiles/bash/belt.bash" ] && source "$HOME/dev/dotfiles/bash/belt.bash"
 
 # User configuration
 
@@ -128,30 +136,35 @@ alias lsd='ls -lF ${colorflag} | grep "^d"' # List only directories
 
 alias startihdev="bundle exec passenger start -a 0.0.0.0 -p 3000 --max-pool-size 1 --spawn-method conservative -e development"
 
-alias subl="/Applications/Sublime\ Text.app/Contents/SharedSupport/bin/subl"
+# Sublime Text alias (macOS only)
+if [[ "$OSTYPE" == "darwin"* ]] && [ -d "/Applications/Sublime Text.app" ]; then
+  alias subl="/Applications/Sublime\ Text.app/Contents/SharedSupport/bin/subl"
+fi
 
 export NVM_DIR="$HOME/.nvm"
 [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
 [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
 
-  # Set Spaceship ZSH as a prompt
-  autoload -U promptinit; promptinit
-  prompt spaceship
+  # Set Spaceship ZSH as a prompt (if installed)
+  if [ -n "$ZSH_CUSTOM" ] && [ -f "$ZSH_CUSTOM/themes/spaceship.zsh-theme" ]; then
+    autoload -U promptinit; promptinit
+    prompt spaceship
+  fi
 
-# Add RVM to PATH for scripting. Make sure this is the last PATH variable change.
-export PATH="$PATH:$HOME/.rvm/bin"
+# Add RVM to PATH for scripting (if installed)
+[ -d "$HOME/.rvm/bin" ] && export PATH="$PATH:$HOME/.rvm/bin"
 
-# Imagemagick to PATH
-export PATH="/usr/local/opt/imagemagick@6/bin:$PATH"
+# Imagemagick to PATH (macOS Homebrew)
+[ -d "/usr/local/opt/imagemagick@6/bin" ] && export PATH="/usr/local/opt/imagemagick@6/bin:$PATH"
 
-# Add Postgress App to PATH
-export PATH="/Applications/Postgres.app/Contents/Versions/9.6/bin:$PATH"
+# Add Postgres App to PATH (macOS)
+[ -d "/Applications/Postgres.app/Contents/Versions/9.6/bin" ] && export PATH="/Applications/Postgres.app/Contents/Versions/9.6/bin:$PATH"
 
-export PATH="~/Qt5.5.0/5.5/clang_64/bin/:$PATH"
-# export PATH="/usr/local/opt/qt/bin:$PATH"export PATH="/usr/local/opt/imagemagick@6/bin:$PATH"
+# Qt to PATH (if installed)
+[ -d "$HOME/Qt5.5.0/5.5/clang_64/bin" ] && export PATH="$HOME/Qt5.5.0/5.5/clang_64/bin:$PATH"
 
-# eval $(thefuck --alias)
+# thefuck alias (if installed)
+# command -v thefuck >/dev/null 2>&1 && eval $(thefuck --alias)
 
-ssh-add -A 2>/dev/null # Adds all known identities to the SSH agent
-
-# source "/Users/stephencarr/.oh-my-zsh/custom/themes/spaceship.zsh-theme"
+# Adds all known identities to the SSH agent (macOS)
+[[ "$OSTYPE" == "darwin"* ]] && ssh-add -A 2>/dev/null
