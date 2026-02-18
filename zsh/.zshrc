@@ -2,7 +2,7 @@
 # export PATH=$HOME/bin:/usr/local/bin:$PATH
 
 # Path to your oh-my-zsh installation.
-export ZSH="/Users/stephencarr/.oh-my-zsh"
+export ZSH="$HOME/.oh-my-zsh"
 
 # Set name of the theme to load. Optionally, if you set this to "random"
 # it'll load a random theme each time that oh-my-zsh is loaded.
@@ -80,27 +80,81 @@ SPACESHIP_GIT_STATUS_DIVERGED="⇕"
 # Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
-plugins=(git)
+plugins=(
+  git
+  docker
+  docker-compose
+  npm
+  node
+  python
+  golang
+  rust
+  aws
+  kubectl
+  terraform
+  z                          # Jump to frecent directories
+  sudo                       # Press ESC twice to add sudo
+  colored-man-pages         # Colorize man pages
+  command-not-found         # Suggest package for missing commands
+  history-substring-search  # Better history search
+)
 
-source $ZSH/oh-my-zsh.sh
-source ~/dev/dotfiles/bash/belt.bash
+# Source oh-my-zsh if it exists
+if [ -f "$ZSH/oh-my-zsh.sh" ]; then
+  source $ZSH/oh-my-zsh.sh
+else
+  echo "Warning: oh-my-zsh not found at $ZSH"
+  echo "Install it with: sh -c \"\$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)\""
+fi
+
+# Source additional bash configs if they exist
+[ -f "$HOME/dev/dotfiles/bash/belt.bash" ] && source "$HOME/dev/dotfiles/bash/belt.bash"
+
+# Load zsh-autosuggestions if installed
+if [ -f /usr/local/share/zsh-autosuggestions/zsh-autosuggestions.zsh ]; then
+  source /usr/local/share/zsh-autosuggestions/zsh-autosuggestions.zsh
+elif [ -f /usr/share/zsh-autosuggestions/zsh-autosuggestions.zsh ]; then
+  source /usr/share/zsh-autosuggestions/zsh-autosuggestions.zsh
+fi
+
+# Load zsh-syntax-highlighting if installed (must be last)
+if [ -f /usr/local/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh ]; then
+  source /usr/local/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+elif [ -f /usr/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh ]; then
+  source /usr/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+fi
 
 # User configuration
+
+# Better history configuration
+HISTSIZE=50000
+SAVEHIST=50000
+setopt EXTENDED_HISTORY          # Write timestamp to history
+setopt INC_APPEND_HISTORY        # Write to history immediately
+setopt SHARE_HISTORY             # Share history between sessions
+setopt HIST_IGNORE_DUPS          # Don't record duplicates
+setopt HIST_IGNORE_ALL_DUPS      # Delete old duplicates
+setopt HIST_FIND_NO_DUPS         # Don't show duplicates in search
+setopt HIST_IGNORE_SPACE         # Don't record commands starting with space
+setopt HIST_SAVE_NO_DUPS         # Don't save duplicates
+setopt HIST_REDUCE_BLANKS        # Remove superfluous blanks
 
 # Autocomplete with hidden files
 setopt globdots
 
-# export MANPATH="/usr/local/man:$MANPATH"
+# Better directory navigation
+setopt AUTO_CD                   # cd by typing directory name
+setopt AUTO_PUSHD                # Push directories to stack
+setopt PUSHD_IGNORE_DUPS         # Don't push duplicates
+setopt PUSHD_SILENT              # Don't print directory stack
 
-# You may need to manually set your language environment
-# export LANG=en_US.UTF-8
+# Set default editor
+export EDITOR='vim'
+export VISUAL='vim'
 
-# Preferred editor for local and remote sessions
-# if [[ -n $SSH_CONNECTION ]]; then
-#   export EDITOR='vim'
-# else
-#   export EDITOR='mvim'
-# fi
+# Better language settings
+export LANG=en_US.UTF-8
+export LC_ALL=en_US.UTF-8
 
 # Compilation flags
 # export ARCHFLAGS="-arch x86_64"
@@ -114,44 +168,79 @@ setopt globdots
 # For a full list of active aliases, run `alias`.
 #
 
-# Detect which `ls` flavor is in use
-if ls --color > /dev/null 2>&1; then # GNU `ls`
- colorflag="--color"
-else # OS X `ls`
- colorflag="-G"
+# Modern ls replacement (eza/exa) or fallback to ls
+if command -v eza >/dev/null 2>&1; then
+  alias ls="eza --icons --group-directories-first"
+  alias ll="eza -l --icons --group-directories-first"
+  alias la="eza -la --icons --group-directories-first"
+  alias lt="eza --tree --level=2 --icons"
+  alias lsd="eza -lD --icons"
+elif command -v exa >/dev/null 2>&1; then
+  alias ls="exa --icons --group-directories-first"
+  alias ll="exa -l --icons --group-directories-first"
+  alias la="exa -la --icons --group-directories-first"
+  alias lt="exa --tree --level=2 --icons"
+  alias lsd="exa -lD --icons"
+else
+  # Fallback to traditional ls
+  if ls --color > /dev/null 2>&1; then # GNU `ls`
+    colorflag="--color"
+  else # macOS `ls`
+    colorflag="-G"
+  fi
+  alias ls="ls -GFh ${colorflag}"
+  alias ll="ls -AlFh"
+  alias la="ls -laF ${colorflag}"
+  alias lsd='ls -lF ${colorflag} | grep "^d"'
 fi
 
-alias ls="ls -GFh ${colorflag}"
-alias ll="ls -AlFh"
-alias la="ls -laF ${colorflag}" # List all files colorized in long format, including dot files
-alias lsd='ls -lF ${colorflag} | grep "^d"' # List only directories
+# Modern cat replacement
+command -v bat >/dev/null 2>&1 && alias cat="bat --style=plain"
+
+# Better grep with color
+alias grep="grep --color=auto"
+alias fgrep="fgrep --color=auto"
+alias egrep="egrep --color=auto"
+
+# Modern find/grep
+command -v fd >/dev/null 2>&1 && alias find="fd"
+command -v rg >/dev/null 2>&1 && alias grep="rg"
 
 alias startihdev="bundle exec passenger start -a 0.0.0.0 -p 3000 --max-pool-size 1 --spawn-method conservative -e development"
 
-alias subl="/Applications/Sublime\ Text.app/Contents/SharedSupport/bin/subl"
+# Sublime Text alias (macOS only)
+if [[ "$OSTYPE" == "darwin"* ]] && [ -d "/Applications/Sublime Text.app" ]; then
+  alias subl="/Applications/Sublime\ Text.app/Contents/SharedSupport/bin/subl"
+fi
 
 export NVM_DIR="$HOME/.nvm"
 [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
 [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
 
-  # Set Spaceship ZSH as a prompt
-  autoload -U promptinit; promptinit
-  prompt spaceship
+  # Modern prompt: Starship (cross-shell) or Spaceship (zsh-only)
+  # Starship is the modern recommendation - install with: brew install starship
+  if command -v starship >/dev/null 2>&1; then
+    eval "$(starship init zsh)"
+  elif [ -n "$ZSH_CUSTOM" ] && [ -f "$ZSH_CUSTOM/themes/spaceship.zsh-theme" ]; then
+    # Fallback to Spaceship if installed
+    autoload -U promptinit; promptinit
+    prompt spaceship
+  fi
 
-# Add RVM to PATH for scripting. Make sure this is the last PATH variable change.
-export PATH="$PATH:$HOME/.rvm/bin"
+# Add RVM to PATH for scripting (if installed)
+[ -d "$HOME/.rvm/bin" ] && export PATH="$PATH:$HOME/.rvm/bin"
 
-# Imagemagick to PATH
-export PATH="/usr/local/opt/imagemagick@6/bin:$PATH"
+# Imagemagick to PATH (macOS Homebrew)
+[ -d "/usr/local/opt/imagemagick@6/bin" ] && export PATH="/usr/local/opt/imagemagick@6/bin:$PATH"
 
-# Add Postgress App to PATH
-export PATH="/Applications/Postgres.app/Contents/Versions/9.6/bin:$PATH"
+# Add Postgres App to PATH (macOS)
+[ -d "/Applications/Postgres.app/Contents/Versions/9.6/bin" ] && export PATH="/Applications/Postgres.app/Contents/Versions/9.6/bin:$PATH"
 
-export PATH="~/Qt5.5.0/5.5/clang_64/bin/:$PATH"
-# export PATH="/usr/local/opt/qt/bin:$PATH"export PATH="/usr/local/opt/imagemagick@6/bin:$PATH"
+# Qt to PATH (if installed)
+[ -d "$HOME/Qt5.5.0/5.5/clang_64/bin" ] && export PATH="$HOME/Qt5.5.0/5.5/clang_64/bin:$PATH"
 
-# eval $(thefuck --alias)
+# thefuck alias (if installed)
+# command -v thefuck >/dev/null 2>&1 && eval $(thefuck --alias)
 
-ssh-add -A 2>/dev/null # Adds all known identities to the SSH agent
-
-# source "/Users/stephencarr/.oh-my-zsh/custom/themes/spaceship.zsh-theme"
+# Adds all known identities to the SSH agent (macOS)
+[[ "$OSTYPE" == "darwin"* ]] && ssh-add -A 2>/dev/null
